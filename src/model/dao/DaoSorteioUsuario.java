@@ -17,9 +17,9 @@ public class DaoSorteioUsuario {
 	
 	ResultSet rs;
 	
-	public int sorteia(String emailUser, int idSorteio) {
+	public String sorteia(String emailUser, int idSorteio) {
 
-		int retorno = 0;
+		String retorno = "";
 				
 				Sorteio sor = new Sorteio();
 				
@@ -56,7 +56,6 @@ public class DaoSorteioUsuario {
 						this.rs = ps.executeQuery();
 						
 						List<Integer> lus = new ArrayList<Integer>();
-						int i = 0;
 						while(this.rs.next()) {
 							System.out.println(this.rs.getInt("ID_USER"));
 							usuSor.setIdUser(this.rs.getInt("ID_USER"));
@@ -73,7 +72,11 @@ public class DaoSorteioUsuario {
 				
 					System.out.println(lus.get(sorteado) + " ganhador");
 					
-					retorno = lus.get(sorteado);
+					DaoUsuario du = new DaoUsuario();
+					String emailSorteado;
+					emailSorteado = du.consultaEmail(lus.get(sorteado));
+					
+					retorno = emailSorteado;
 						
 					}
 					} catch (SQLException e) {

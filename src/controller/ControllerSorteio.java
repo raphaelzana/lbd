@@ -35,7 +35,7 @@ public class ControllerSorteio extends HttpServlet {
 		
 		DaoSorteioUsuario dsu = new DaoSorteioUsuario();
 		
-		int ganhador = dsu.sorteia(emailUser, Integer.parseInt(idSorteio));
+		String ganhador = dsu.sorteia(emailUser, Integer.parseInt(idSorteio));
 		
 		
 		request.getSession().setAttribute("ganhador", ganhador);

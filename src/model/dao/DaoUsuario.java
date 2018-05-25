@@ -13,6 +13,38 @@ public class DaoUsuario {
 	
 	private ResultSet rs;
 	
+	public String consultaEmail(int idUser) {
+		
+		String retorno = "";
+		
+		String sql = "SELECT * FROM USUARIO WHERE ID = ?";
+		
+		Connection conn = MySql.getConexaoMySQL();
+		
+		try {
+			
+			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
+			
+			ps.setString(1, String.valueOf(idUser));
+			
+			Usuario user = new Usuario();
+			
+			this.rs = ps.executeQuery();
+			
+			while(this.rs.next()) {
+				user.setEmail(this.rs.getString("EMAIL"));
+			}
+			retorno = user.getEmail();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			MySql.pararConexao(conn);
+		}		
+		
+		return retorno;
+	}
+	
 	public Usuario login (Usuario usu) {
 		
 		Usuario retorno = null;
