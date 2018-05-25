@@ -24,36 +24,22 @@ public class ControllerSorteio extends HttpServlet {
     }
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-	
-		System.out.println("oi");
-		String a = "meu pau";
-
 		
-		System.out.println(a);
-		
-		
-		System.out.println("oi");
-		
-			String botao = request.getParameter("botao");
-			
-			System.out.println(botao);
-			System.out.println(botao);
-			System.out.println(botao);
-			System.out.println(botao);
-			
-			System.out.println(botao);
-			System.out.println(botao);
-			System.out.println(botao);
-			
+			String botao = request.getParameter("botao");	
 			
 	if (botao.equals("Sortear")){	
 		
-		System.out.println(botao);
-		System.out.println(botao);
+		HttpSession sessao = request.getSession();
+		String idSorteio = sessao.getAttribute("idSorteio").toString();
+		String emailUser = sessao.getAttribute("email").toString();
 		
-		System.out.println(botao + "botao4444");
+		DaoSorteioUsuario dsu = new DaoSorteioUsuario();
+		
+		int ganhador = dsu.sorteia(emailUser, Integer.parseInt(idSorteio));
 		
 		
+		request.getSession().setAttribute("ganhador", ganhador);
+		response.sendRedirect("ganhador.jsp");
 		
 	}else if(botao.equals("Criar sorteio")) {
 				
